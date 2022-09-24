@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun startBrowser(){
-        val url = "https://betbhai.com/home"
+        val url = "https://jack9.io"
         webView!!.loadUrl(url)
         webView!!.webViewClient = object : WebViewClient(){
 
