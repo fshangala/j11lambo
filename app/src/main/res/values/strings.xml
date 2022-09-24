@@ -4,4 +4,15 @@
     <string name="reconnectBtn">Reconnect</string>
     <string name="reloadbrowserbtn">Reload Browser</string>
     <string name="preferencesBtn">Config</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="teamLabel">Team</string>
+    <string name="backlayLabel">Back/Lay</string>
+    <string name="oddsLabel">Odds</string>
+    <string name="stakeLabel">Stake</string>
+    <string name="inputHostIpLabel">Host</string>
+    <string name="inputHostPortLabel">Port</string>
+    <string name="inputCodeLabel">Code</string>
+    <string name="saveBtn">Save</string>
+    <string name="app_version">J11 1.0.0</string>
 </resources>
