@@ -10,4 +10,8 @@
     <string name="backlayLabel">Back/Lay</string>
     <string name="oddsLabel">Odds</string>
     <string name="stakeLabel">Stake</string>
+    <string name="inputHostIpLabel">Host</string>
+    <string name="inputHostPortLabel">Port</string>
+    <string name="inputCodeLabel">Code</string>
+    <string name="saveBtn">Save</string>
 </resources>
