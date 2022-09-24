@@ -14,4 +14,5 @@
     <string name="inputHostPortLabel">Port</string>
     <string name="inputCodeLabel">Code</string>
     <string name="saveBtn">Save</string>
+    <string name="app_version">J11 1.0.0</string>
 </resources>
