@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/oddsBtn"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="@string/oddsBtn"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/reconnectBtn"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/reconnectBtn"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/reloadBrowserBtn"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/reloadbrowserbtn"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/preferencesBtn"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/preferencesBtn"
+        app:showAsAction="ifRoom" />
+</menu>

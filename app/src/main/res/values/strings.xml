@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">J11 Lambo</string>
+    <string name="oddsBtn">Odds</string>
+    <string name="reconnectBtn">Reconnect</string>
+    <string name="reloadbrowserbtn">Reload Browser</string>
+    <string name="preferencesBtn">Config</string>
+</resources>
