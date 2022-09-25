@@ -47,19 +47,6 @@
                 android:entries="@array/back_lay" />
 
             <TextView
-                android:id="@+id/oddsLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/oddsLabel" />
-
-            <EditText
-                android:id="@+id/oddsInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal" />
-
-            <TextView
                 android:id="@+id/stakeLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

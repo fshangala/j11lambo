@@ -81,17 +81,15 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
 
     private fun onOpenBet(automationEvents: AutomationEvents) {
         var Oteam = ""
-        var Obacklay = automationEvents.eventArgs[1]
-        var Oodds = automationEvents.eventArgs[2]
-        var Ostake = automationEvents.eventArgs[3]
+        val Obacklay = automationEvents.eventArgs[1]
 
         if (automationEvents.eventArgs[0] == "team1"){
             Oteam = "0"
         } else if (automationEvents.eventArgs[0] == "team2"){
-            Oteam = "4"
+            Oteam = "1"
         }
 
-        webView!!.evaluateJavascript("document.querySelectorAll(\".$Obacklay-odd.exch-odd-button\")[$Oteam].click();"){
+        webView!!.evaluateJavascript("document.querySelectorAll(\".odd-button.$Obacklay-color\")[$Oteam].click();"){
             runOnUiThread{
                 masterStatus!!.text = it
             }
@@ -99,32 +97,10 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun placeBet(automationEvents: AutomationEvents) {
-        var Oteam = ""
-        var Obacklay = automationEvents.eventArgs[1]
-        var Oodds = automationEvents.eventArgs[2]
-        var Ostake = automationEvents.eventArgs[3]
+        val Ostake = automationEvents.eventArgs[3]
 
-        if (automationEvents.eventArgs[0] == "team1"){
-            Oteam = "0"
-        } else if (automationEvents.eventArgs[0] == "team2"){
-            Oteam = "4"
-        }
-
-        webView!!.evaluateJavascript("var input = document.querySelector(\".odds-ctn input\");\n" +
-                "var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, \"value\").set;\n" +
-                "nativeInputValueSetter.call(input, '$Oodds');\n" +
-                "var ev2 = new Event('input', { bubbles: true});\n" +
-                "input.dispatchEvent(ev2);"){
-            runOnUiThread{
-                masterStatus!!.text = it
-            }
-        }
-
-        webView!!.evaluateJavascript("var input = document.querySelector(\".stake-ctn input\");\n" +
-                "var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, \"value\").set;\n" +
-                "nativeInputValueSetter.call(input, '$Ostake');\n" +
-                "var ev1 = new Event('input', { bubbles: true});\n" +
-                "input.dispatchEvent(ev1);"){
+        webView!!.evaluateJavascript("var input = document.querySelector(\"ion-input.BetPlacing__input\");\n" +
+                "input.value = $Ostake;"){
             runOnUiThread{
                 masterStatus!!.text = it
             }
@@ -132,7 +108,7 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun confirmBet() {
-        webView!!.evaluateJavascript("document.querySelector(\".place-btn\").click();") {
+        webView!!.evaluateJavascript("document.querySelector(\"button[type='submit']\").click();") {
             runOnUiThread {
                 masterStatus!!.text = it
             }

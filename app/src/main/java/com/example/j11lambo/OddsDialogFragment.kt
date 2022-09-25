@@ -31,13 +31,9 @@ class OddsDialogFragment: DialogFragment() {
                         // Send the positive button event back to the host activity
                         val team = dialogView.findViewById<Spinner>(R.id.teamSpinner)
                         val backlay = dialogView.findViewById<Spinner>(R.id.backlaySpinner)
-                        val odds = dialogView.findViewById<EditText>(R.id.oddsInput)
                         val stake = dialogView.findViewById<EditText>(R.id.stakeInput)
 
                         var oddsvalue = 0.0
-                        if (odds.text.toString() != "") {
-                            oddsvalue = odds.text.toString().toDouble()
-                        }
 
                         var stakevalue = 0.0
                         if (stake.text.toString() != ""){
@@ -61,13 +57,9 @@ class OddsDialogFragment: DialogFragment() {
                     DialogInterface.OnClickListener{dialog,id ->
                         val team = dialogView.findViewById<Spinner>(R.id.teamSpinner)
                         val backlay = dialogView.findViewById<Spinner>(R.id.backlaySpinner)
-                        val odds = dialogView.findViewById<EditText>(R.id.oddsInput)
                         val stake = dialogView.findViewById<EditText>(R.id.stakeInput)
 
                         var oddsvalue = 0.0
-                        if (odds.text.toString() != "") {
-                            oddsvalue = odds.text.toString().toDouble()
-                        }
 
                         var stakevalue = 0.0
                         if (stake.text.toString() != ""){
