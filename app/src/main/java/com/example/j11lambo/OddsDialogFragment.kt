@@ -29,7 +29,8 @@ class OddsDialogFragment: DialogFragment() {
                 .setPositiveButton("Set",
                     DialogInterface.OnClickListener { dialog, id ->
                         // Send the positive button event back to the host activity
-                        val team = dialogView.findViewById<Spinner>(R.id.teamSpinner)
+                        val betindex = dialogView.findViewById<Spinner>(R.id.betSpinner)
+                        //val team = dialogView.findViewById<Spinner>(R.id.teamSpinner)
                         val backlay = dialogView.findViewById<Spinner>(R.id.backlaySpinner)
                         val stake = dialogView.findViewById<EditText>(R.id.stakeInput)
 
@@ -41,7 +42,7 @@ class OddsDialogFragment: DialogFragment() {
                         }
 
                         val oddsData = OddsData(
-                            team.selectedItem.toString(),
+                            betindex.selectedItem.toString(),
                             backlay.selectedItem.toString(),
                             oddsvalue,
                             stakevalue
@@ -55,7 +56,8 @@ class OddsDialogFragment: DialogFragment() {
                     })
                 .setNeutralButton("Open bet",
                     DialogInterface.OnClickListener{dialog,id ->
-                        val team = dialogView.findViewById<Spinner>(R.id.teamSpinner)
+                        val betindex = dialogView.findViewById<Spinner>(R.id.betSpinner)
+                        //val team = dialogView.findViewById<Spinner>(R.id.teamSpinner)
                         val backlay = dialogView.findViewById<Spinner>(R.id.backlaySpinner)
                         val stake = dialogView.findViewById<EditText>(R.id.stakeInput)
 
@@ -67,7 +69,7 @@ class OddsDialogFragment: DialogFragment() {
                         }
 
                         val oddsData = OddsData(
-                            team.selectedItem.toString(),
+                            betindex.selectedItem.toString(),
                             backlay.selectedItem.toString(),
                             oddsvalue,
                             stakevalue

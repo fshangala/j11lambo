@@ -80,16 +80,10 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun onOpenBet(automationEvents: AutomationEvents) {
-        var Oteam = ""
         val Obacklay = automationEvents.eventArgs[1]
+        val betindex = automationEvents.eventArgs[0]
 
-        if (automationEvents.eventArgs[0] == "team1"){
-            Oteam = "0"
-        } else if (automationEvents.eventArgs[0] == "team2"){
-            Oteam = "1"
-        }
-
-        webView!!.evaluateJavascript("document.querySelectorAll(\".odd-button.$Obacklay-color\")[$Oteam].click();"){
+        webView!!.evaluateJavascript("document.querySelectorAll(\".odd-button.$Obacklay-color\")[$betindex].click();"){
             runOnUiThread{
                 masterStatus!!.text = it
             }
@@ -182,17 +176,17 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
 
     override fun openBet(dialog: DialogFragment, oddsData: OddsData) {
         val automationObject = AutomationObject("bet","open_bet", arrayOf<String>(
-            oddsData.team,
+            oddsData.betindex,
             oddsData.backlay,
             oddsData.odds.toString(),
-            oddsData.stake.toString()
+            oddsData.stake.toString(),
         ))
         model!!.sendCommand(automationObject)
     }
 
     override fun onDialogPositiveClick(dialog: DialogFragment,oddsData: OddsData) {
         val automationObject = AutomationObject("bet","place_bet", arrayOf<String>(
-            oddsData.team,
+            oddsData.betindex,
             oddsData.backlay,
             oddsData.odds.toString(),
             oddsData.stake.toString()
