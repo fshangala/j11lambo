@@ -16,4 +16,5 @@
     <string name="saveBtn">Save</string>
     <string name="app_version">J11 1.1.0</string>
     <string name="betLabel">Bet Index</string>
+    <string name="betSitesLabel">Bet Sites</string>
 </resources>

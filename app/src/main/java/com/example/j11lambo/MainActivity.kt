@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     private var masterStatus: TextView? = null
     var sharedPref: SharedPreferences? = null
     var toast: Toast? = null
+    var betSite: BetSite? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
         sharedPref = getSharedPreferences("MySettings", Context.MODE_PRIVATE)
         masterStatus = findViewById(R.id.masterStatus)
 
+        betSite = BetSite(sharedPref!!.getString("betSite","jack9").toString())
         startBrowser()
 
         model!!.connectionStatus.observe(this) {
@@ -80,10 +82,9 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun onOpenBet(automationEvents: AutomationEvents) {
-        val Obacklay = automationEvents.eventArgs[1]
+        val backlay = automationEvents.eventArgs[1]
         val betindex = automationEvents.eventArgs[0]
-
-        webView!!.evaluateJavascript("document.querySelectorAll(\".odd-button.$Obacklay-color\")[$betindex].click();"){
+        webView!!.evaluateJavascript(betSite!!.openBetScript(backlay.toString(), betindex.toString().toInt())){
             runOnUiThread{
                 masterStatus!!.text = it
             }
@@ -91,10 +92,9 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun placeBet(automationEvents: AutomationEvents) {
-        val Ostake = automationEvents.eventArgs[3]
+        val stake = automationEvents.eventArgs[3]
 
-        webView!!.evaluateJavascript("var input = document.querySelector(\"ion-input.BetPlacing__input\");\n" +
-                "input.value = $Ostake;"){
+        webView!!.evaluateJavascript(betSite!!.placeBetScript(stake.toString().toDouble())){
             runOnUiThread{
                 masterStatus!!.text = it
             }
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun confirmBet() {
-        webView!!.evaluateJavascript("document.querySelector(\"button[type='submit']\").click();") {
+        webView!!.evaluateJavascript(betSite!!.comfirmBetScript()) {
             runOnUiThread {
                 masterStatus!!.text = it
             }
@@ -110,8 +110,7 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     }
 
     private fun startBrowser(){
-        val url = "https://jack9.io"
-        webView!!.loadUrl(url)
+        webView!!.loadUrl(betSite!!.url())
         webView!!.webViewClient = object : WebViewClient(){
 
             override fun onPageFinished(view: WebView?, url: String?) {

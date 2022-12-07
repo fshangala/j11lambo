@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Spinner
 
 class ConfigActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +49,14 @@ class ConfigActivity : AppCompatActivity() {
         val hostIP = findViewById<EditText>(R.id.inputHostIp)
         val hostPort = findViewById<EditText>(R.id.inputHostPort)
         val hostCode = findViewById<EditText>(R.id.inputCode)
+        val betSites = findViewById<Spinner>(R.id.betSpinner)
+
         val sharedPref = getSharedPreferences("MySettings", MODE_PRIVATE)
         val editSharedPref = sharedPref.edit()
         editSharedPref.putString("hostIp",hostIP.text.toString())
         editSharedPref.putInt("hostPort",hostPort.text.toString().toInt())
         editSharedPref.putString("hostCode",hostCode.text.toString())
+        editSharedPref.putString("betSite",betSites.selectedItem.toString())
         editSharedPref.apply()
         openMain()
         //finish()
