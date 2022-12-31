@@ -1,10 +1,21 @@
 package com.example.j11lambo
 
-class BetSite(val name: String) {
+class BetSite(val name: String = "jack9") {
+    val sites = arrayOf<String>(
+        "jack9",
+        "lotusbook247.bet",
+        "lotusbook247.co"
+    )
     fun url():String{
         when(name){
             "jack9" -> {
                 return "https://jack9.io"
+            }
+            "lotusbook247.bet" -> {
+                return "https://lotusbook247.bet"
+            }
+            "lotusbook247.co" -> {
+                return "https://lotusbook247.co"
             }
             else -> {
                 return "https://jack9.io"

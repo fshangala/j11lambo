@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 
@@ -13,6 +14,9 @@ class ConfigActivity : AppCompatActivity() {
         setContentView(R.layout.activity_config)
 
         val sharedPref = getSharedPreferences("MySettings", MODE_PRIVATE)
+        val betSite = BetSite()
+        val betSitesAdapter: ArrayAdapter<CharSequence> = ArrayAdapter(this,android.R.layout.simple_spinner_item,betSite.sites)
+        betSitesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         val hostIP = findViewById<EditText>(R.id.inputHostIp)
         hostIP.setText(sharedPref.getString("hostIp","192.168.43.145"))
@@ -22,12 +26,20 @@ class ConfigActivity : AppCompatActivity() {
 
         val hostCode = findViewById<EditText>(R.id.inputCode)
         hostCode.setText(sharedPref.getString("hostCode","sample"))
+
+        val betSiteSpinner = findViewById<Spinner>(R.id.betSitesSpinner)
+        betSiteSpinner.adapter = betSitesAdapter
+        val selectedBetSite = betSitesAdapter.getPosition(sharedPref!!.getString("betSite","jack9"))
+        betSiteSpinner.setSelection(selectedBetSite)
     }
 
     override fun onResume() {
         super.onResume()
 
         val sharedPref = getSharedPreferences("MySettings", MODE_PRIVATE)
+        val betSite = BetSite()
+        val betSitesAdapter:ArrayAdapter<CharSequence> = ArrayAdapter(this,android.R.layout.simple_spinner_item,betSite.sites)
+        betSitesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         val hostIP = findViewById<EditText>(R.id.inputHostIp)
         hostIP.post {
@@ -43,13 +55,20 @@ class ConfigActivity : AppCompatActivity() {
         hostCode.post {
             hostCode.setText(sharedPref.getString("hostCode", "sample"))
         }
+
+        val betSiteSpinner = findViewById<Spinner>(R.id.betSitesSpinner)
+        betSiteSpinner.post {
+            betSiteSpinner.adapter = betSitesAdapter
+            val selectedBetSite = betSitesAdapter.getPosition(sharedPref!!.getString("betSite","jack9"))
+            betSiteSpinner.setSelection(selectedBetSite)
+        }
     }
 
     fun savePreferences(view: View){
         val hostIP = findViewById<EditText>(R.id.inputHostIp)
         val hostPort = findViewById<EditText>(R.id.inputHostPort)
         val hostCode = findViewById<EditText>(R.id.inputCode)
-        val betSites = findViewById<Spinner>(R.id.betSpinner)
+        val betSites = findViewById<Spinner>(R.id.betSitesSpinner)
 
         val sharedPref = getSharedPreferences("MySettings", MODE_PRIVATE)
         val editSharedPref = sharedPref.edit()
