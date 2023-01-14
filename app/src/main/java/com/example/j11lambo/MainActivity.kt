@@ -7,10 +7,9 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.util.Log
+import android.view.*
+import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -26,15 +25,18 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     var sharedPref: SharedPreferences? = null
     var toast: Toast? = null
     var betSite: BetSite? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         webView = findViewById(R.id.webView)
+
         true.also {
             webView!!.settings.javaScriptEnabled = it
             webView!!.settings.domStorageEnabled = it
         }
+        webView!!.addJavascriptInterface(LamboJsInterface(),"lambo")
         model = ViewModelProvider(this)[MasterViewModel::class.java]
         sharedPref = getSharedPreferences("MySettings", Context.MODE_PRIVATE)
         masterStatus = findViewById(R.id.masterStatus)
@@ -79,6 +81,13 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
             }
         }
         model!!.createConnection(sharedPref!!)
+    }
+
+    private inner class LamboJsInterface {
+        @JavascriptInterface
+        fun performClick(target: String){
+            Log.d("WEBVIEW",target)
+        }
     }
 
     private fun onOpenBet(automationEvents: AutomationEvents) {
