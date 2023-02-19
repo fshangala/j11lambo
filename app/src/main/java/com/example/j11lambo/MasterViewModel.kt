@@ -4,4 +4,5 @@ import androidx.lifecycle.MutableLiveData
 
 class MasterViewModel:Y11ViewModel() {
     var browserLoading = MutableLiveData<Boolean>(false)
+    var currentBetIndex = MutableLiveData<Int>(0)
 }

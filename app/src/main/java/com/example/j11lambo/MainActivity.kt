@@ -93,30 +93,42 @@ class MainActivity : AppCompatActivity(), OddsDialogFragment.OddsDialogListener 
     private fun onOpenBet(automationEvents: AutomationEvents) {
         val backlay = automationEvents.eventArgs[1]
         val betindex = automationEvents.eventArgs[0]
+
+        model!!.currentBetIndex.postValue(betindex.toString().toInt())
+
         webView!!.evaluateJavascript(betSite!!.openBetScript(backlay.toString(), betindex.toString().toInt())){
             runOnUiThread{
                 masterStatus!!.text = it
+                val automationObject = AutomationObject("bet","place_bet", arrayOf<String>(
+                    automationEvents.eventArgs[0].toString(),
+                    automationEvents.eventArgs[1].toString(),
+                    automationEvents.eventArgs[2].toString(),
+                    automationEvents.eventArgs[3].toString()
+                ))
+                model!!.sendCommand(automationObject)
             }
         }
-    }
+    } //v1.2
 
     private fun placeBet(automationEvents: AutomationEvents) {
         val stake = automationEvents.eventArgs[3]
+        val betindex = model!!.currentBetIndex.value!!
 
-        webView!!.evaluateJavascript(betSite!!.placeBetScript(stake.toString().toDouble())){
+        webView!!.evaluateJavascript(betSite!!.placeBetScript(betindex, stake.toString().toDouble())){
             runOnUiThread{
                 masterStatus!!.text = it
             }
         }
-    }
+    } //v1.2
 
     private fun confirmBet() {
-        webView!!.evaluateJavascript(betSite!!.comfirmBetScript()) {
+        val betindex = model!!.currentBetIndex.value!!
+        webView!!.evaluateJavascript(betSite!!.comfirmBetScript(betindex.toString().toInt())) {
             runOnUiThread {
                 masterStatus!!.text = it
             }
         }
-    }
+    } //v1.2
 
     private fun startBrowser(){
         webView!!.loadUrl(betSite!!.url())

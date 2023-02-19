@@ -1,6 +1,7 @@
 package com.example.j11lambo
 
 import android.content.SharedPreferences
+import android.os.Build
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import okhttp3.*
@@ -27,7 +28,8 @@ open class Y11ViewModel : ViewModel() {
             appClient.newWebSocket(appRequest,object: WebSocketListener(){
                 override fun onOpen(webSocket: WebSocket, response: Response) {
                     appSocket = webSocket
-                    webSocket.send("{\"event_type\":\"connection\",\"event\":\"phone_connected\",\"args\":[],\"kwargs\":{}}")
+                    val devicetype = "${Build.ID}->Model:${Build.MODEL};Android:${Build.VERSION.RELEASE}"
+                    webSocket.send("{\"event_type\":\"connection\",\"event\":\"phone_connected\",\"args\":[\"${devicetype}\"],\"kwargs\":{}}")
                     connectionStatus.postValue("Connected!")
                     connected.postValue(true)
                 }
